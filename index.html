@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback Form</title>
+</head>
+<body>
+  <h2>Submit Feedback</h2>
+
+  <input type="text" id="email" placeholder="Your Email"><br><br>
+  <textarea id="feedback" placeholder="Write your feedback here..."></textarea><br><br>
+
+  <button id="sendBtn">Send Feedback</button>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwdWmXzs7yWCcEdvjVs1Dn4LSH1to5dls7GDVS0z3jQ-Mgz67wNMAlystVmnku1egsiUA/exec"; // Replace with your Web App URL
+
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const payload = {
+        email: document.getElementById("email").value,
+        feedback: document.getElementById("feedback").value
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.text())
+      .then(msg => alert(msg))
+      .catch(err => console.error("Error:", err));
+    });
+  </script>
+</body>
+</html>
